@@ -1,8 +1,8 @@
 PROXY = all clean run
-SUBPROJECTS = shunting-yard
+SUBPROJECTS = $(shell find -type d -not -path './.*' -not -name '.')
 
 .PHONY: $(PROXY) $(SUBPROJECTS)
 
 $(PROXY) $(SUBPROJECTS):
-# NOTE: как распараллелить?
+#NOTE: как распараллелить?
 	@$(foreach d, $(SUBPROJECTS), $(MAKE) $@ -C $d &&) true

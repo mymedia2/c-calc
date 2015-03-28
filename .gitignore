@@ -2,3 +2,4 @@
 *.d
 #TODO: подумать, как это унифицировать
 /shunting-yard/shunting-yard
+/reverse-polish/reverse-polish
