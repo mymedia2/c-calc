@@ -1,13 +1,15 @@
 #include <stdio.h>
+#include <string.h>
 #include "interpreter.h"
 
 #define N 30
 
-int main()
+int main(int argc, char* argv[])
 {
 	int pos;
 	char result[N];
-	printf("> ");
+	if (!(argc == 2 && !strcmp(argv[1], "-n")))
+		printf("> ");
 	pos = grv_reverse_polish_interpreter(result);
 	if (pos == -1)
 		printf("%s\n", result);
