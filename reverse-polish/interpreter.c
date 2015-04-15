@@ -12,10 +12,10 @@
 static void reverse_int(char* p)
 {
 	char t;
-	const size_t len = strlen(p);
+	const size_t len = strlen(p) + 1;
 	size_t i;
 
-	for (i = 0; i < len / 2; i++)
+	for (i = 1; i < len / 2; i++)
 	{
 		t = p[i];
 		p[i] = p[len - i - 1];
@@ -28,11 +28,13 @@ static int read_int(char* buf)
 	int ch;
 	size_t i;
 
-	for (i = 0; i < N - 1; i++)
+	for (i = 1; i < N - 1; i++) {
 		if((ch = getchar()) != EOF && isdigit(ch))
 			buf[i] = ch;
 		else
 			break;
+	}
+	buf[0] = '+';
 	buf[i] = '\0';
 	ungetc(ch, stdin);
 	reverse_int(buf);

@@ -9,13 +9,12 @@ static void normalize(char* num)
 {
 	char* nv = NULL;
 
-	while (num && *num)
+	while (++num && *num)
 	{
 		if (*num == '0')
-			nv = num;
+			nv = num;	/* хм… оно что ли убирает не более одного нуля? */
 		else
 			nv = NULL;
-		num++;
 	}
 
 	if (nv) *nv = '\0';	/* NOTE: нулевой символ, а не цифра ноль */
@@ -28,7 +27,7 @@ void grv_unsgn_add(char* a, char* b)
 	int carry = 0;
 	size_t i;
 
-	for (i = 0; i < l1 || i < l2; i++)
+	for (i = 1; i < l1 || i < l2; i++)
 	{
 		/* школьный алгоритм сложения в столбик */
 		const int d = (i < l1 ? a[i] - '0' : 0) + (i < l2 ? b[i] - '0' : 0) + carry;
@@ -49,7 +48,7 @@ void grv_unsgn_substract(char* a, char* b)
 	int below = 0;
 	size_t i;
 
-	for (i = 0; i < l1 || i < l2; i++)
+	for (i = 1; i < l1 || i < l2; i++)
 	{
 		/* копипаста из выше */
 		int d = (i < l1 ? a[i] - '0' : 0) - (i < l2 ? b[i] - '0' : 0) - below;
