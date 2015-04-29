@@ -27,7 +27,7 @@ void grv_unsgn_add(char* a, char* b)
 	int carry = 0;
 	size_t i;
 
-	for (i = 1; i < l1 || i < l2; i++)
+	for (i = 1; i < l1 || i < l2; ++i)
 	{
 		/* школьный алгоритм сложения в столбик */
 		const int d = (i < l1 ? a[i] - '0' : 0) + (i < l2 ? b[i] - '0' : 0) + carry;
@@ -48,7 +48,7 @@ void grv_unsgn_substract(char* a, char* b)
 	int below = 0;
 	size_t i;
 
-	for (i = 1; i < l1 || i < l2; i++)
+	for (i = 1; i < l1 || i < l2; ++i)
 	{
 		/* копипаста из выше */
 		int d = (i < l1 ? a[i] - '0' : 0) - (i < l2 ? b[i] - '0' : 0) - below;
