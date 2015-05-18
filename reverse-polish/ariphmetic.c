@@ -37,11 +37,23 @@ static int unsign_cmp(char* a, char* b) {
 	return 0;
 }
 
+static void normalize(char* num)
+{
+	size_t i;
+
+	for (i = strlen(num) - 1; i >= 0; i--) {
+		if (num[i] != '0') break;
+	}
+
+	num[i + (i ? 1 : 2)] = '\0';	/* NOTE: нулевой символ, а не цифра ноль */
+	if (!i) num[0] = '+';
+}
+
 void grv_arph_add(char* a, char* b) {
 	if (is_positive(a) == is_positive(b)) {
 		grv_unsgn_add(a, b);
 	} else if (is_positive(a)) {
-		if (unsign_cmp(a, b)) {
+		if (unsign_cmp(a, b) > 0) {
 			a[0] = '+';
 		} else {
 			swap(a, b);
@@ -50,7 +62,7 @@ void grv_arph_add(char* a, char* b) {
 		grv_unsgn_substract(a, b);
 	} else {
 		swap(a, b);
-		if (unsign_cmp(a, b)) {
+		if (unsign_cmp(a, b) > 0) {
 			a[0] = '+';
 		} else {
 			swap(a, b);
@@ -58,6 +70,7 @@ void grv_arph_add(char* a, char* b) {
 		}
 		grv_unsgn_substract(b, a);
 	}
+	normalize(a);
 }
 
 void grv_arph_substract(char* a, char* b) {

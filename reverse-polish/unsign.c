@@ -5,21 +5,6 @@
 
 #define N 30
 
-static void normalize(char* num)
-{
-	char* nv = NULL;
-
-	while (++num && *num)
-	{
-		if (*num == '0')
-			nv = num;	/* хм… оно что ли убирает не более одного нуля? */
-		else
-			nv = NULL;
-	}
-
-	if (nv) *nv = '\0';	/* NOTE: нулевой символ, а не цифра ноль */
-}
-
 void grv_unsgn_add(char* a, char* b)
 {
     const size_t l1 = strlen(a);
@@ -60,5 +45,4 @@ void grv_unsgn_substract(char* a, char* b)
 	/* на этот момент i указыват на конец первого числа */
 	if (below);
 	/* TODO: сигнализирование об ошибке */
-	normalize(a);
 }
