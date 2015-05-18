@@ -62,16 +62,3 @@ void grv_unsgn_substract(char* a, char* b)
 	/* TODO: сигнализирование об ошибке */
 	normalize(a);
 }
-
-void grv_unsgn_produt(char* a, char* b)
-{
-	char c[N], d[N];
-
-	strcpy(c, a);
-	strcpy(d, b);
-	while (strcmp(d, "1"))
-	{
-		grv_arph_add(a, c);
-		grv_arph_substract(d, "1");
-	}
-}
