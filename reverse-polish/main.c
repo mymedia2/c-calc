@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 		printf("> ");
 	pos = grv_reverse_polish_interpreter(result);
 	if (pos == -1)
-		printf("%s\n", result);
+		printf("%s\n", result + (result[0] == '+' ? 1 : 0));
 	else
 	{
 		int i;
