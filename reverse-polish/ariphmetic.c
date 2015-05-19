@@ -16,7 +16,7 @@ void swap(char* a, char* b) {
 	const size_t l1 = strlen(a);
 	const size_t l2 = strlen(b);
 
-	for (i = 1; i <= l1 || i <= l2; i++) {
+	for (i = 0; i <= l1 || i <= l2; i++) {
 		temp = a[i];
 		a[i] = b[i];
 		b[i] = temp;
@@ -51,9 +51,13 @@ static void normalize(char* num)
 
 void grv_arph_add(char* a, char* b) {
 	if (is_positive(a) == is_positive(b)) {
+		/* если одного знака */
+		/* ab > 0 */
 		grv_unsgn_add(a, b);
 	} else if (is_positive(a)) {
+		/* b < 0 < a */
 		if (unsign_cmp(a, b) > 0) {
+			/* -b < a */
 			a[0] = '+';
 		} else {
 			swap(a, b);
@@ -61,14 +65,9 @@ void grv_arph_add(char* a, char* b) {
 		}
 		grv_unsgn_substract(a, b);
 	} else {
+		/* a < 0 < b */
 		swap(a, b);
-		if (unsign_cmp(a, b) > 0) {
-			a[0] = '+';
-		} else {
-			swap(a, b);
-			a[0] = '-';
-		}
-		grv_unsgn_substract(b, a);
+		grv_arph_add(a, b);
 	}
 	normalize(a);
 }
@@ -82,12 +81,12 @@ void grv_arph_substract(char* a, char* b) {
 void grv_arph_produt(char* a, char* b)
 {
 	char c[N], d[N];
-	char* dir = is_positive(b) ? "-1" : "+1";
+	char dir[3] = { is_positive(b) ? '-' : '+', '1', '\0' };
+
+	a[0] = a[0] == b[0] ? '+' : '-';
 
 	strcpy(c, a);
 	strcpy(d, b);
-
-	a[0] = a[0] == b[0] ? '+' : '-';
 
 	while (strcmp(d + 1, "1"))
 	{
